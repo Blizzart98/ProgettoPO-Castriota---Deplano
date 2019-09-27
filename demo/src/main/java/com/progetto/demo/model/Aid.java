@@ -1,6 +1,6 @@
-package com.progetto.demo;
+package com.progetto.demo.model;
 
-public class AidMainObj {
+public class Aid {
 	private String freq;
 	private String geo;
 	private String unit;
@@ -39,7 +39,7 @@ public class AidMainObj {
 	}
 
 
-	public AidMainObj(String freq, String geo, String unit, String objective, float[] aids) {
+	public Aid(String freq, String geo, String unit, String objective, float[] aids) {
 		super();
 		this.freq = freq;
 		this.geo = geo;
