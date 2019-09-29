@@ -10,13 +10,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.progetto.demo.url.Download;
+import com.progetto.demo.url.Parsing;
 
 @SpringBootApplication
 public class DemoApplication {
 
 	public static void main(String[] args) throws IOException, ParseException, org.json.simple.parser.ParseException {
 		SpringApplication.run(DemoApplication.class, args);
-		Download classe = new Download();
+		Parsing.selectUrl();
 	}
 
 }
