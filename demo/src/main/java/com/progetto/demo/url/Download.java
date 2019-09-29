@@ -11,6 +11,7 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,6 +21,31 @@ import org.json.simple.parser.ParseException;
 
 
 public class Download{
+	
+	/*
+	 * Seleziona l'Url di default o quello inserito
+	 * @throws IOException gestisce gli errori del flusso di lettura dell'url
+	 */
+	public static void selectUrl() throws IOException {
+		Scanner input = new Scanner(System.in);
+		BufferedReader urlinput = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Welcome, \n Press \"1\" to download from the default URL. \n Press \"2\" to add a new URL." );
+		int selector=input.nextInt();
+		switch (selector) {
+		case 2:
+			System.out.println("Insert the URL: ");
+			String selurl=urlinput.readLine();
+			Download.DownloadData(selurl);
+			input.close();
+			break;
+		case 1:
+			Download.DownloadData();
+			input.close();
+			break;
+		}
+	}
+
+
 	
 	public static void DownloadData() {
 
@@ -54,13 +80,13 @@ public class Download{
 			        String urlD = (String)o1.get("url");
 			        System.out.println(format + " | " + urlD);
 			        if(format.equals("http://publications.europa.eu/resource/authority/file-type/CSV")) {
-			        	System.out.println( "OK, Il link in uso contiene un csv, Effettuo il download!" );
+			        	System.out.println( "CSV founded. Downloading..." );
 			        	DownloadUrl(urlD, "file/data.csv");
-			        	System.out.println("Di seguito altri elementi presenti nel link:\n");
+			        	System.out.println("Other files:\n");
 			        }
 			    }
 			}
-			System.out.println( "Download Effettuato" );
+			System.out.println( "Download Completed." );
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -101,13 +127,13 @@ public class Download{
 			        String urlD = (String)o1.get("url");
 			        System.out.println(format + " | " + urlD);
 			        if(format.equals("http://publications.europa.eu/resource/authority/file-type/CSV")) {
-			        	System.out.println( "OK, Il link in uso contiene un csv, Effettuo il download!" );
-			        	DownloadUrl(urlD, "file/gdp.csv");
-			        	System.out.println("Di seguito altri elementi presenti nel link:\n");
+			        	System.out.println( "CSV founded. Downloading..." );
+			        	DownloadUrl(urlD, "file/data.csv");
+			        	System.out.println("Other files:\n");
 			        }
 			    }
 			}
-			System.out.println( "Download Effettuato" );
+			System.out.println( "Download completed." );
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
