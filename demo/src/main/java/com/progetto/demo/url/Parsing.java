@@ -40,6 +40,8 @@ public class Parsing {
 		return tab;
 	}
 	
+	
+	//funzione che prende la linea di aiuti, e crea un vettore di oggetti di tipo YA.
 	private static Vector<YA> addYA(String[] campi,int year) {
 		Vector<YA> aidLine = new Vector<YA>();
 		for(int i=4;i<campi.length;i++) {
