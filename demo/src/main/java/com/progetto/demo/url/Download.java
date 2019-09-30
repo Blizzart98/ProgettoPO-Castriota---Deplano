@@ -29,20 +29,10 @@ public class Download{
 	public static void selectUrl() throws IOException {
 		Scanner input = new Scanner(System.in);
 		BufferedReader urlinput = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("Welcome, \n Press \"1\" to download from the default URL. \n Press \"2\" to add a new URL." );
-		int selector=input.nextInt();
-		switch (selector) {
-		case 2:
-			System.out.println("Insert the URL: ");
-			String selurl=urlinput.readLine();
-			Download.DownloadData(selurl);
-			input.close();
-			break;
-		case 1:
-			Download.DownloadData();
-			input.close();
-			break;
-		}
+		Download.DownloadData();
+		input.close();
+			
+		
 	}
 
 
@@ -94,53 +84,7 @@ public class Download{
 		}
 	}
 	
-	public static void DownloadData(String selectedUrl) {
 
-		String url = selectedUrl;
-		try {
-			
-			URLConnection openConnection = new URL(url).openConnection();
-			openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
-			InputStream in = openConnection.getInputStream();
-			
-			 String data = "";
-			 String line = "";
-			 try {
-			   InputStreamReader inR = new InputStreamReader( in );
-			   BufferedReader buf = new BufferedReader( inR );
-			  
-			   while ( ( line = buf.readLine() ) != null ) {
-				   data+= line;
-				   System.out.println( line );
-			   }
-			 } finally {
-			   in.close();
-			 }
-			JSONObject obj = (JSONObject) JSONValue.parseWithException(data); 
-			JSONObject objI = (JSONObject) (obj.get("result"));
-			JSONArray objA = (JSONArray) (objI.get("resources"));
-			
-			for(Object o: objA){
-			    if ( o instanceof JSONObject ) {
-			        JSONObject o1 = (JSONObject)o; 
-			        String format = (String)o1.get("format");
-			        String urlD = (String)o1.get("url");
-			        System.out.println(format + " | " + urlD);
-			        if(format.equals("http://publications.europa.eu/resource/authority/file-type/CSV")) {
-			        	System.out.println( "CSV founded. Downloading..." );
-			        	DownloadUrl(urlD, "file/data.csv");
-			        	System.out.println("Other files:\n");
-			        }
-			    }
-			}
-			System.out.println( "Download completed." );
-		} catch (IOException | ParseException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public static void DownloadUrl(String url, String fileName) throws Exception {
 	    try (InputStream in = URI.create(url).toURL().openStream()) {
 	        Files.copy(in, Paths.get(fileName),StandardCopyOption.REPLACE_EXISTING);
