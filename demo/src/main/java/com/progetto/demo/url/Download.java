@@ -29,14 +29,12 @@ public class Download{
 	public static void selectUrl() throws IOException {
 		Scanner input = new Scanner(System.in);
 		BufferedReader urlinput = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Avvio download del file CSV");
 		Download.DownloadData();
 		input.close();
 			
-		
 	}
 
-
-	
 	public static void DownloadData() {
 
 		String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=Ju4o7srAEdHz4OMPwCWiDQ";
@@ -70,7 +68,7 @@ public class Download{
 			        String urlD = (String)o1.get("url");
 			        System.out.println(format + " | " + urlD);
 			        if(format.equals("http://publications.europa.eu/resource/authority/file-type/CSV")) {
-			        	System.out.println( "CSV founded. Downloading..." );
+			        	System.out.println( "CSV found. Downloading..." );
 			        	DownloadUrl(urlD, "file/data.csv");
 			        	System.out.println("Other files:\n");
 			        }
