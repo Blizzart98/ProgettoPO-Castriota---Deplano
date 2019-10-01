@@ -29,7 +29,7 @@ public class simpleRestController {
 		return "Richieste disponibili: -/get: riceve i dati degli Aid in formato JSon";
 	}
 	@GetMapping("/aid/get")
-	public Vector<Aid> getAll()
+	public Vector<Aid> getAll()//Stampa l'intera collezione di oggetti aid convertita dal file alla richiesta "-/get"
 	{
 		try {
 			tab=Parsing.fileParsing();
