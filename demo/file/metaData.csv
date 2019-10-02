@@ -1,0 +1,7 @@
+freq;periodicità con cui viene effettuato;char
+geo;Nazione;String
+unit;Unità di misura delle rilevazioni;String
+obj;Codice obbiettivo;String
+aidList;Vettore di oggetti YA;Vector<YA>
+year;Anno dell'aiuto;int
+value;Valore dell'aiuto;int
