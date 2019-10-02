@@ -20,10 +20,10 @@ public class DemoApplication {
 
 	public static void main(String[] args) throws IOException, ParseException, org.json.simple.parser.ParseException {
 		
-		
+		SpringApplication.run(DemoApplication.class, args);
 		Download.selectUrl();
 		csv=Parsing.fileParsing();
-		//SpringApplication.run(DemoApplication.class, args);
+		
 		
 	}
 
