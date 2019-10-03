@@ -11,11 +11,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.progetto.demo.url.Download;
+import com.progetto.demo.url.ParseMetadata;
 import com.progetto.demo.url.Parsing;
 
 @SpringBootApplication
 public class DemoApplication {
 	private static Vector<Aid> csv;
+	private static Vector<Metadata> meta;
 	
 
 	public static void main(String[] args) throws IOException, ParseException, org.json.simple.parser.ParseException {
@@ -23,7 +25,7 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 		Download.selectUrl();
 		csv=Parsing.fileParsing();
-		
+		meta=ParseMetadata.fileParsing();
 		
 	}
 

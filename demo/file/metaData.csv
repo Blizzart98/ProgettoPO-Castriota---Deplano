@@ -1,4 +1,4 @@
-freq;periodicità con cui viene effettuato;char
+freq;Periodicità con cui viene effettuato;char
 geo;Nazione;String
 unit;Unità di misura delle rilevazioni;String
 obj;Codice obbiettivo;String
