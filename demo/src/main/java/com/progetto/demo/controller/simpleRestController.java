@@ -26,20 +26,20 @@ public class simpleRestController {
 		return "Richieste disponibili: -/get: riceve i dati degli Aid in formato JSon";
 	}
 	
-	@GetMapping("/aid/get")
-	public Vector<Aid> getFiltered(@RequestParam(value="filter",defaultValue="", required=false) String filter) throws FileNotFoundException, IOException
+	@GetMapping("/aid/data")
+	public Vector<Aid> getFiltered(@RequestParam(value="filter",defaultValue="", required=false) String filter) throws FileNotFoundException, IOException,NullPointerException
 	{
 		tab=Parsing.fileParsing();
+		
 		if(filter.equals(""))
 			{
 				return tab;
 			}
 		else
 		{
-			String[] attributes=filter.split("=");
+			String[] attributes=filter.split(":");
 			filtered=filterUtils.filterAttributes(attributes[0],attributes[1],tab);
 			return filtered;
 		}
-		
 	}
 }
