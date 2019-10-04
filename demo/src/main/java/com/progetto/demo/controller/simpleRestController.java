@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.progetto.demo.DemoApplication;
 import com.progetto.demo.model.Aid;
 import com.progetto.demo.model.Metadata;
 import com.progetto.demo.url.ParseMetadata;
@@ -19,7 +20,7 @@ import com.progetto.demo.url.Parsing;
 
 public class simpleRestController {
 	
-	private static Vector<Aid> tab;
+	private static Vector<Aid> dataTab;
 	private static Vector<Aid> filtered;
 	private static Vector<Metadata> metaTab;
 	
@@ -32,16 +33,16 @@ public class simpleRestController {
 	@GetMapping("/aid/data")
 	public Vector<Aid> getFiltered(@RequestParam(value="filter",defaultValue="", required=false) String filter) throws FileNotFoundException, IOException,NullPointerException
 	{
-		tab=Parsing.fileParsing();
+		dataTab=DemoApplication.csv;
 		
 		if(filter.equals(""))
 			{
-				return tab;
+				return dataTab;
 			}
 		else
 		{
 			String[] attributes=filter.split(":");
-			filtered=filterUtils.filterAttributes(attributes[0],attributes[1],tab);
+			filtered=filterUtils.filterAttributes(attributes[0],attributes[1],dataTab);
 			return filtered;
 		}
 	}
@@ -50,7 +51,7 @@ public class simpleRestController {
 	@GetMapping("/aid/metadata")
 	public Vector<Metadata> getMetadata() throws FileNotFoundException, IOException
 	{
-		metaTab=ParseMetadata.fileParsing();
+		metaTab=DemoApplication.meta;
 		return metaTab;
 	}
 }
