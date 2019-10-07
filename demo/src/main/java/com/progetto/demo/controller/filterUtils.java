@@ -121,6 +121,7 @@ public class filterUtils {
 		
 		valori.add(stato);
 		valori.add(obiettivo);
+		logici.add("AND");
 		
 		filtrato=filterWithOp(source,attributi,valori,logici).get(0);
 		return filtrato;
