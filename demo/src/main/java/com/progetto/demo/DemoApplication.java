@@ -16,17 +16,19 @@ import com.progetto.demo.url.Parsing;
 
 @SpringBootApplication
 public class DemoApplication {
-	private static Vector<Aid> csv;
-	private static Vector<Metadata> meta;
+	public static Vector<Aid> csv;
+	public static Vector<Metadata> meta;
 	
 
 	public static void main(String[] args) throws IOException, ParseException, org.json.simple.parser.ParseException {
 		
 		SpringApplication.run(DemoApplication.class, args);
 		Download.selectUrl();
+		System.out.println("Download: OK");
 		csv=Parsing.fileParsing();
+		System.out.println("Data Parsing: OK");
 		meta=ParseMetadata.fileParsing();
-		
+		System.out.println("Metadata Parsing: OK");
 	}
 
 }
