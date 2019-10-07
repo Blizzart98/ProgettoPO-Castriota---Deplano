@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.progetto.demo.DemoApplication;
 import com.progetto.demo.model.Aid;
 import com.progetto.demo.model.Metadata;
-import com.progetto.demo.url.ParseMetadata;
-import com.progetto.demo.url.Parsing;
+
 
 @RestController
 
@@ -30,7 +29,7 @@ public class simpleRestController {
 		return "Richieste disponibili: -/get: riceve i dati degli Aid in formato JSon";
 	}
 	
-	@GetMapping("/aid/data")
+	@GetMapping("/aid/data") //format ?filter=attributo:operatore:valore:opLogico:attributo2:operatore2:valore2 ecc.
 	public Vector<Aid> getFiltered(@RequestParam(value="filter",defaultValue="", required=false) String filter) throws FileNotFoundException, IOException,NullPointerException
 	{
 		dataTab=DemoApplication.csv;
@@ -41,8 +40,30 @@ public class simpleRestController {
 			}
 		else
 		{
-			String[] attributes=filter.split(":");
-			filtered=filterUtils.filterAttributes(attributes[0],attributes[1],dataTab);
+			//Converto la stringa di input della get in stringhe utilizzabili per filtrare i dati
+			Vector<String> attributi=new Vector<String>();
+			Vector<String> operatori=new Vector<String>();
+			Vector<String> valori=new Vector<String>();
+			Vector<String> logicalOps=new Vector<String>();
+			
+			String[] singoli = filter.split(":");
+	
+			int maxSplit=singoli.length/4;
+			
+			if(singoli.length%4 >0)
+				maxSplit++;
+				
+			for(int i=0;i<maxSplit;i++)
+			{
+				attributi.add(singoli[0 +(4*i)]);
+				operatori.add(singoli[1 +(4*i)]);
+				valori.add(singoli[2 +(4*i)]);
+				if(singoli.length>(3+4*i))
+					logicalOps.add(singoli[3 +(4*i)]);
+			}
+			
+			
+			filtered=filterUtils.filterWithOp(dataTab, attributi, valori, logicalOps);
 			return filtered;
 		}
 	}

@@ -24,8 +24,7 @@ public class ParseMetadata {
 			
 					
 					metaTab.add(new Metadata(campi[0], campi[1],campi[2]));
-					
-					System.out.println("");
+
 				
 			}
 			br.close();

@@ -25,10 +25,8 @@ public class Parsing {
 			int y=0;
 			while((line = br.readLine()) != null) {
 				String[] campi = line.split(DELIMITER);
-				if(y!=0) { //condizione necessaria per riconoscere quali sono  nostri campi, y sarà 0 solo la prima volta, poi memorizzerà l'anno iniziale
-					
+				if(y!=0) { //condizione necessaria per riconoscere quali sono  nostri campi, y sarà 0 solo la prima volta, poi memorizzerà l'anno iniziale	
 					tab.add(new Aid(campi[0].charAt(0), campi[1],campi[2], campi[3], addYA(campi,y) ));
-					System.out.println("");
 				}
 				else {
 				
