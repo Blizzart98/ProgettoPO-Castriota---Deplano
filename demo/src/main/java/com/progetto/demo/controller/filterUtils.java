@@ -13,9 +13,7 @@ import com.progetto.demo.model.YA;
 
 public class filterUtils {
 	
-	//private static Vector<Aid> filtered=new Vector<Aid>() ;
 
-	
 	public static Vector<Aid> filterAttributes(String filter, String value, Vector<Aid> tab)
 	{
 		Vector<Aid> filtered = new Vector<Aid>();
@@ -44,43 +42,18 @@ public class filterUtils {
 					break;	
 					
 				default: 
+					System.out.println("Attributo non corretto");
 					break;
 			}
 		}
 		return filtered;
 	}
 	
-	//Metodo che effettua il confronto tra numeri o tra stringhe con gli operatori ><= e restituisce vero o falso
-	public static boolean check(Object value, String operator, Object th) {
-		
-		if (th instanceof Number && value instanceof Number) {	
-			Double thC = ((Number)th).doubleValue();
-			Double valuec = ((Number)value).doubleValue();
-			
-			if (operator.equals("=="))
-				return value.equals(th);
-			else if (operator.equals(">"))
-				return valuec > thC;
-			else if (operator.equals("<"))
-				return valuec < thC;
-			else if (operator.equals("<="))
-				return valuec<=thC;
-			else if (operator.equals(">="))
-				return valuec>=thC;
-		}
-		
-		
-		else if(th instanceof String && value instanceof String)
-			return value.equals(th);
-		
-		return false;		
-	}
-	
 	public static Vector<Aid> filterWithOp(Vector<Aid> source, Vector<String> attributeNames, Vector<String> value, Vector<String> logicalOperators)
 	{	
 	
 		Vector<Aid> output=filterAttributes(attributeNames.get(0),value.get(0),source);
-			
+
 		if(logicalOperators.isEmpty()==false)
 		{
 		
@@ -88,7 +61,6 @@ public class filterUtils {
 			if(logicalOperators.get(0).contentEquals("AND"))
 			{	//devo applicare ulteriori filtri a quelli già applicati, il source sarà "filtered"
 				//rimuovo valori, attributi e operatori già confrontati
-			
 				logicalOperators.removeElementAt(0);
 				attributeNames.removeElementAt(0);
 				value.removeElementAt(0);
@@ -100,14 +72,16 @@ public class filterUtils {
 				logicalOperators.removeElementAt(0); 
 				attributeNames.removeElementAt(0);
 				value.removeElementAt(0);
-				return filterWithOp(source,attributeNames,value,logicalOperators);
+				Vector<Aid> temp=filterWithOp(source,attributeNames,value,logicalOperators);
+				output.addAll(temp);
+				return output;
 			}
 		}
 		
 		return output;
 	}
 
-
+	
 	public static Aid filterSingle(Vector<Aid> source, String stato, String obiettivo)
 	{
 		Aid filtrato= new Aid();
@@ -116,12 +90,9 @@ public class filterUtils {
 		Vector<String> valori = new Vector<String>();
 		Vector<String> logici = new Vector<String>();
 		
-		attributi.add("geo");
-		attributi.add("obj");
+		String call=("geo:"+ stato +":AND:obj:" + obiettivo);
 		
-		valori.add(stato);
-		valori.add(obiettivo);
-		logici.add("AND");
+		stringSplitter(call,":",attributi,valori,logici);
 		
 		filtrato=filterWithOp(source,attributi,valori,logici).get(0);
 		return filtrato;
@@ -143,5 +114,51 @@ public class filterUtils {
 		return selezionati;
 	}
 	
+	//Metodo che effettua il confronto tra numeri o tra stringhe con gli operatori ><= e restituisce vero o falso
+	public static boolean check(Object value, String operator, Object th) {
+			
+			if (th instanceof Number && value instanceof Number) {	
+				Double thC = ((Number)th).doubleValue();
+				Double valuec = ((Number)value).doubleValue();
+				
+				if (operator.equals("=="))
+					return value.equals(th);
+				else if (operator.equals(">"))
+					return valuec > thC;
+				else if (operator.equals("<"))
+					return valuec < thC;
+				else if (operator.equals("<="))
+					return valuec<=thC;
+				else if (operator.equals(">="))
+					return valuec>=thC;
+			}
+			
+			
+			else if(th instanceof String && value instanceof String)
+				return value.equals(th);
+			
+			return false;		
+		}
+	
+	@SafeVarargs
+	public static void stringSplitter(String source,String delimiter, Vector<String>...singoli )
+	{
+		int n = singoli.length;//numero di varArgs che passo al metodo
+		String[] splitter = source.split(delimiter);//splitta la stringa in ingresso
+
+		int maxSplit=splitter.length/n; //calcola il numero massimo di elementi per ogni vettore
+		
+		if(splitter.length%n >0)//tiene conto di divisioni non intere
+			maxSplit++;
+		
+		//inserisce le stringhe splittate nei rispettivi vettori passati come parametri singoli
+		for(int j=0;j<maxSplit;j++)
+			for(int i=0;i<n;i++)
+			{
+				if(i+(n*j)<splitter.length)
+				singoli[i].add(splitter[i+(n*j)]);
+			}
+			
+	}
 	
 }
