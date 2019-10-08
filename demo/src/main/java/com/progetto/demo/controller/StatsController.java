@@ -61,15 +61,17 @@ public class StatsController {
 			
 			results.setMax(calcMax(filtered));
 			results.setMin(calcMin(filtered));
-			
+			results.setAvg(calcAvg(filtered));
+			results.setDevStd(Math.rint(calcDevStd((filtered), results.getAvg())));
+			results.setSum(calcSum(filtered));
+			results.setCount(calcCount(filtered));
 		}
-		
-		
 		return results;
 }
 	
+	
 	public double calcMax(Vector<Aid> v) {
-		//Vector<Double> max=null;
+		
 		double max=0.0;
 		for(Aid oggetto : v)
 		{
@@ -78,8 +80,6 @@ public class StatsController {
 			for(int i=0; i<oggetto.getAidList().size();i++) {
 				if(oggetto.getAidList().get(i).getValue() > max)
 				max=oggetto.getAidList().get(i).getValue();
-				
-			//max.set(i, max.get(i)+oggetto.getAidList().get(i).getValue());
 			}
 		}
 		return max;
@@ -91,12 +91,11 @@ public class StatsController {
 		for(Aid oggetto : v)
 		{
 			for(int i=0; i<oggetto.getAidList().size();i++) {
-				if(oggetto.getAidList().get(i).getValue() < min)
+				if(oggetto.getAidList().get(i).getValue() < min && oggetto.getAidList().get(i).getValue()!=0 )
 				min=oggetto.getAidList().get(i).getValue();
 							}
 		}
 		return min;
-
 	}
 	
 	public double calcAvg(Vector<Aid> v) {
@@ -105,14 +104,49 @@ public class StatsController {
 		{
 			if(oggetto.getObj().equals("TOTAL")) {
 			for(int i=0; i<oggetto.getAidList().size();i++) {
-				avg=oggetto.getAidList().get(i).getValue();
+				avg+=oggetto.getAidList().get(i).getValue();
 							}
 		}
-		avg=avg/18;
-
-
 	}
+		avg=avg/18;
 		return avg;
-
 }
+	
+	
+	public double calcDevStd(Vector<Aid> v, double m) {
+		double dev=0;
+		int j=0;
+		for(Aid oggetto : v)
+		{
+			for(int i=0; i<oggetto.getAidList().size();i++) {
+				dev+=Math.pow((oggetto.getAidList().get(i).getValue()-m),2);
+				j++;
+							}
+		}
+		return dev/j;
+}
+
+
+
+public double calcSum(Vector<Aid> v) {
+	double sum=0.00;
+	for(Aid oggetto : v)
+	{
+		for(int i=0; i<oggetto.getAidList().size();i++) {
+			sum+=oggetto.getAidList().get(i).getValue();
+						}
+	}
+	return sum;
+}
+
+public int calcCount(Vector<Aid> v) {
+	int j=0;
+	for(Aid oggetto : v)
+	{
+		for(int i=0; i<oggetto.getAidList().size();i++) 
+			j++;			
+	}
+	return j;
+}
+
 }

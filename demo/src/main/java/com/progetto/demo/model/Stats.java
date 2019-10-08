@@ -38,7 +38,7 @@ public class Stats {
 	public void setSum(double sum) {
 		this.sum = sum;
 	}
-	public double getCount() {
+	public int getCount() {
 		return count;
 	}
 	public void setCount(int count) {
