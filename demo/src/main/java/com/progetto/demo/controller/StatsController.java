@@ -5,16 +5,12 @@ import java.io.IOException;
 import java.util.Vector;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.progetto.demo.DemoApplication;
 import com.progetto.demo.model.Aid;
-import com.progetto.demo.model.Metadata;
 import com.progetto.demo.model.Stats;
-import com.progetto.demo.model.YA;
-import com.progetto.demo.url.Parsing;
 
 
 @RestController 
@@ -72,7 +68,7 @@ public class StatsController {
 	Stats results = new Stats();
 	private static Vector<Aid> dataTab;
 	private static Vector<Aid> filtered=new Vector<Aid>();
-	private static Vector<Metadata> metaTab;
+
 	
 	@GetMapping("/aid/stats") 
 	public Stats getFiltered(@RequestParam(value="filter",defaultValue="", required=false) String filter) throws FileNotFoundException, IOException,NullPointerException
@@ -94,9 +90,9 @@ public class StatsController {
 		}
 		results.setMax(calcMax(filtered));
 		results.setMin(calcMin(filtered));
-		results.setAvg(calcAvg(filtered));
-		results.setDevStd(Math.rint(calcDevStd((filtered), results.getAvg())));
-		results.setSum(calcSum(filtered));
+		results.setAvg(Math.rint(calcAvg(filtered))/100);
+		results.setDevStd(Math.rint(calcDevStd((filtered), results.getAvg()))/100);
+		results.setSum(Math.rint(calcSum(filtered))/100);
 		results.setCount(calcCount(filtered));
 		
 		return results;
@@ -142,7 +138,7 @@ public class StatsController {
 		}
 	}
 		avg=avg/18;
-		return avg;
+		return avg*100;
 }
 	
 	
@@ -156,7 +152,7 @@ public class StatsController {
 				j++;
 							}
 		}
-		return dev/j;
+		return 100*dev/j;
 }
 
 
