@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ import com.progetto.demo.url.Parsing;
 @RestController 
 
 public class StatsController {
-	Stats results = new Stats();
+	/*Stats results = new Stats();
 
 	private static Vector<Aid> dataTab;
 	private static Vector<Aid> filtered;
@@ -67,8 +68,39 @@ public class StatsController {
 			results.setCount(calcCount(filtered));
 		}
 		return results;
-}
+}*/
+	Stats results = new Stats();
+	private static Vector<Aid> dataTab;
+	private static Vector<Aid> filtered=new Vector<Aid>();
+	private static Vector<Metadata> metaTab;
 	
+	@GetMapping("/aid/stats") 
+	public Stats getFiltered(@RequestParam(value="filter",defaultValue="", required=false) String filter) throws FileNotFoundException, IOException,NullPointerException
+	{
+		//format ?filter=attributo:valore:opLogico:attributo2:valore2 ecc.
+		//format ?sfilter=codiceStato,codiceObj,operatore,numero
+		dataTab=DemoApplication.csv;
+		Vector<String> attributi=new Vector<String>();
+		Vector<String> valori=new Vector<String>();
+		Vector<String> logicalOps=new Vector<String>();
+		
+		if(filter.equals("")==false)
+		{
+			//Converto la stringa di input della get in stringhe utilizzabili per filtrare i dati
+			filterUtils.stringSplitter(filter, ":", attributi,valori,logicalOps);
+			//Restituisco i valori filtrati come da richiesta
+			filtered=filterUtils.filterWithOp(dataTab, attributi, valori, logicalOps);
+		
+		}
+		results.setMax(calcMax(filtered));
+		results.setMin(calcMin(filtered));
+		results.setAvg(calcAvg(filtered));
+		results.setDevStd(Math.rint(calcDevStd((filtered), results.getAvg())));
+		results.setSum(calcSum(filtered));
+		results.setCount(calcCount(filtered));
+		
+		return results;
+	}
 	
 	public double calcMax(Vector<Aid> v) {
 		
@@ -102,10 +134,11 @@ public class StatsController {
 		double avg=0;
 		for(Aid oggetto : v)
 		{
-			if(oggetto.getObj().equals("TOTAL")) {
+			
 			for(int i=0; i<oggetto.getAidList().size();i++) {
 				avg+=oggetto.getAidList().get(i).getValue();
-							}
+				if(oggetto.getObj().equals("TOTAL"))
+					avg/=2;
 		}
 	}
 		avg=avg/18;
@@ -129,7 +162,7 @@ public class StatsController {
 
 
 public double calcSum(Vector<Aid> v) {
-	double sum=0.00;
+	double sum=0;
 	for(Aid oggetto : v)
 	{
 		for(int i=0; i<oggetto.getAidList().size();i++) {
