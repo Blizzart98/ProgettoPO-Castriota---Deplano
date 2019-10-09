@@ -128,19 +128,19 @@ public class StatsController {
 	
 	public double calcAvg(Vector<Aid> v) {
 		double avg=0;
+		int j=0;
 		for(Aid oggetto : v)
 		{
 			
 			for(int i=0; i<oggetto.getAidList().size();i++) {
+				if(oggetto.getObj().equals("TOTAL")==false)
 				avg+=oggetto.getAidList().get(i).getValue();
-				if(oggetto.getObj().equals("TOTAL"))
-					avg/=2;
+				 j++;
 		}
 	}
-		avg=avg/18;
+		avg=avg/j;
 		return avg*100;
 }
-	
 	
 	public double calcDevStd(Vector<Aid> v, double m) {
 		double dev=0;
@@ -155,17 +155,16 @@ public class StatsController {
 		return 100*dev/j;
 }
 
-
-
 public double calcSum(Vector<Aid> v) {
 	double sum=0;
 	for(Aid oggetto : v)
 	{
-		for(int i=0; i<oggetto.getAidList().size();i++) {
-			sum+=oggetto.getAidList().get(i).getValue();
-						}
+		for(int i=0; i<oggetto.getAidList().size(); i++) 
+			sum+=oggetto.getAidList().get(i).getValue();						
 	}
-	return sum;
+		
+	return sum*100;
+
 }
 
 public int calcCount(Vector<Aid> v) {
