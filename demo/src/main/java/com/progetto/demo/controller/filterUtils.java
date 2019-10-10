@@ -26,19 +26,19 @@ public class filterUtils {
 			{
 				case "freq":
 					if(oggetto.getFreq()==(value.charAt(0)))
-						insertWithCheck(filtered,oggetto);
+						filtered.add(oggetto);
 					break;
 				case "geo":
 					if(oggetto.getGeo().equals(value))
-						insertWithCheck(filtered,oggetto);
+						filtered.add(oggetto);
 					break;
 				case "unit":
 					if(oggetto.getUnit().equals(value))
-						insertWithCheck(filtered,oggetto);
+						filtered.add(oggetto);
 					break;
 				case "obj":
 					if(oggetto.getObj().equals(value))
-						insertWithCheck(filtered,oggetto);
+						filtered.add(oggetto);
 					break;	
 					
 				default: 
@@ -69,11 +69,13 @@ public class filterUtils {
 			}
 			else if(logicalOperators.get(0).contentEquals("OR")) //trovo un operatore OR
 			{ 	//devo applicare altri filtri ai dati di partenza, la source rimarrà "source"
+				String precedente=value.get(0);
 				logicalOperators.removeElementAt(0); 
 				attributeNames.removeElementAt(0);
 				value.removeElementAt(0);
 				Vector<Aid> temp=filterWithOp(source,attributeNames,value,logicalOperators);
 				output.addAll(temp);
+				checkDuplicates(output);
 				return output;
 			}
 		}
@@ -97,7 +99,9 @@ public class filterUtils {
 		
 		return filtrato;
 	}
-
+	
+	
+	
 	public static Vector<YA> filterYears(Vector<YA> source, String operator, Double value)
 	{
 		Vector<YA> selezionati = new Vector<YA>();
@@ -133,12 +137,13 @@ public class filterUtils {
 					return valuec>=thC;
 			}
 			
-			
 			else if(th instanceof String && value instanceof String)
 				return value.equals(th);
 			
 			return false;		
 		}
+	
+
 	
 	@SafeVarargs
 	public static void stringSplitter(String source,String delimiter, Vector<String>...singoli )
@@ -161,10 +166,16 @@ public class filterUtils {
 			
 	}
 	
-	public static void insertWithCheck(Vector<Aid> filtered, Aid oggetto)
+	public static void checkDuplicates(Vector<Aid> input)
 	{
-		if(filtered.contains(oggetto)==false)
-			filtered.add(oggetto);
+		for(int i=0;i<input.size();i++)
+			for(int j=i+1;j<input.size();j++)
+				if(input.get(i).equals(input.get(j)))
+				{
+					input.removeElementAt(j);
+				}
+	
 	}
+
 	
 }

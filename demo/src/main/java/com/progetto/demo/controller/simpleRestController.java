@@ -66,10 +66,7 @@ public class simpleRestController {
 			
 			//opera su temp in modo da non sovrascrivere la AidList originale (evita problemi in chiamate successive)
 			//copio singoloAid in temp
-			temp.setFreq(singoloAid.getFreq());
-			temp.setUnit(singoloAid.getUnit());
-			temp.setGeo(singoloAid.getGeo());
-			temp.setObj(singoloAid.getObj());
+			temp=singoloAid.copy();
 			//non ho modificato la AidList di SingoloAid
 			temp.setAidList(selezionati);
 			

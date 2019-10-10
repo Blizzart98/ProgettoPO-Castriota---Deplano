@@ -102,5 +102,28 @@ public class Aid {
 		return "Aid [freq=" + freq + ", geo=" + geo + ", unit=" + unit + ", obj=" + obj + ", aidList=" + aidList + "]";
 	}
 	
+	//Verifica se due oggetti Aid hanno gli stessi campi
+	
+	public boolean equals(Aid oggetto)
+	{
+		if(this.geo.equals(oggetto.getGeo()) && this.obj.equals(oggetto.getObj()))
+			return true;
+		else
+			return false;
+	}
+	
+	//Copia gli attributi dell'oggetto in un altro oggetto Aid
+	
+	public Aid copy()
+	{
+		Aid copy=new Aid();
+		copy.setFreq(this.freq);
+		copy.setGeo(this.geo);
+		copy.setObj(this.obj);
+		copy.setUnit(this.unit);
+		copy.setAidList(this.aidList);
+		
+		return copy;
+	}
 
 }
