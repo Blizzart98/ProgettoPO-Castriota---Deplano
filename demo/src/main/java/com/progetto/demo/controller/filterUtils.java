@@ -26,19 +26,19 @@ public class filterUtils {
 			{
 				case "freq":
 					if(oggetto.getFreq()==(value.charAt(0)))
-						filtered.add(oggetto);
+						insertWithCheck(filtered,oggetto);
 					break;
 				case "geo":
 					if(oggetto.getGeo().equals(value))
-						filtered.add(oggetto);
+						insertWithCheck(filtered,oggetto);
 					break;
 				case "unit":
 					if(oggetto.getUnit().equals(value))
-						filtered.add(oggetto);
+						insertWithCheck(filtered,oggetto);
 					break;
 				case "obj":
 					if(oggetto.getObj().equals(value))
-							filtered.add(oggetto);
+						insertWithCheck(filtered,oggetto);
 					break;	
 					
 				default: 
@@ -93,8 +93,8 @@ public class filterUtils {
 		String call=("geo:"+ stato +":AND:obj:" + obiettivo);
 		
 		stringSplitter(call,":",attributi,valori,logici);
-		
 		filtrato=filterWithOp(source,attributi,valori,logici).get(0);
+		
 		return filtrato;
 	}
 
@@ -159,6 +159,12 @@ public class filterUtils {
 				singoli[i].add(splitter[i+(n*j)]);
 			}
 			
+	}
+	
+	public static void insertWithCheck(Vector<Aid> filtered, Aid oggetto)
+	{
+		if(filtered.contains(oggetto)==false)
+			filtered.add(oggetto);
 	}
 	
 }
