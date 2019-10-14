@@ -167,6 +167,11 @@ public class Filter {
 				checkDuplicates(output);
 				return output;
 			}
+			else
+			{
+				System.out.println("Operatore logico non corretto, i filtri ottenuti potrebbero essere incompleti");
+				return null;
+			}
 		}
 		
 		return output;
@@ -203,23 +208,21 @@ public class Filter {
 	}
 	
 	
-	void filterYears(String operator,Double value,Vector<Aid> source)
+	public Vector<Aid> filterYears(String operatore,Double valore)
 	{
-		Vector<YA> selected=new Vector<YA>();
+		Vector<YA> selected;
+		Aid temp = new Aid();
+		Vector<Aid> appoggio = new Vector<Aid>();
 		
-		for(Aid oggetto:source)
+		for(Aid oggetto:input)
 		{
-			for(YA anno:oggetto.getAidList())
-			{
-				if(check(anno.getValue(),operator,value))
-					{
-						//System.out.println("Ho selezionato un anno  " + anno.getYear()); //debug
-						selected.add(anno);
-					}
-			}
-			oggetto.setAidList(selected);
-			selected.clear();
+			selected=selectYears(oggetto.getAidList(),operatore,valore);
+			temp=oggetto.copy();
+			temp.setAidList(selected);
+			appoggio.add(temp);
+			
 		}
+		return appoggio;
 	}
 	
 	//Metodo che effettua il confronto tra numeri o tra stringhe con gli operatori ><= e restituisce vero o falso

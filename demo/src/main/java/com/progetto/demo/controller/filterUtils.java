@@ -43,7 +43,7 @@ public class filterUtils {
 					
 				default: 
 					System.out.println("Attributo non corretto");
-					break;
+					return null;
 			}
 		}
 		return filtered;
