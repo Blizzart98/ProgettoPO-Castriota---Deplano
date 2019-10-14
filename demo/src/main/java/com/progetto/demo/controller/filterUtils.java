@@ -12,7 +12,7 @@ import com.progetto.demo.model.YA;
 
 
 public class filterUtils {
-	
+
 
 	public static Vector<Aid> filterAttributes(String filter, String value, Vector<Aid> tab)
 	{
@@ -177,5 +177,5 @@ public class filterUtils {
 	
 	}
 
-	
+
 }

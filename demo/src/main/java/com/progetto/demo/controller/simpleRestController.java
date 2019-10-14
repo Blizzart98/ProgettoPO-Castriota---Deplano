@@ -15,11 +15,11 @@ import com.progetto.demo.model.Metadata;
 import com.progetto.demo.model.YA;
 
 
-@RestController
+//@RestController
 
 
 public class simpleRestController {
-	
+/*	
 	private static Vector<Aid> dataTab;
 	private static Vector<Aid> filtered=new Vector<Aid>();
 	private static Vector<Metadata> metaTab;
@@ -87,4 +87,6 @@ public class simpleRestController {
 		metaTab=DemoApplication.meta;
 		return metaTab;
 	}
+
+*/
 }
