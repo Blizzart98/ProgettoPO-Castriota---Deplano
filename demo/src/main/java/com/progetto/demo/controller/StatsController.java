@@ -28,19 +28,17 @@ public class StatsController {
 	private static Vector<Aid> dataTab;
 	private static Vector<Aid> filtered=new Vector<Aid>();
 
-	@GetMapping("/aid/stats") 
-	public Stats getFiltered(@RequestParam(value="filter",defaultValue="", required=false) String filter) throws FileNotFoundException, IOException,NullPointerException
+	@GetMapping("/aid/stats")
+	public Stats getFiltered(@RequestParam(value="filter",defaultValue="", required=false) String getCall) throws FileNotFoundException, IOException,NullPointerException
 	{
 		//format ?filter=attributo:valore:opLogico:attributo2:valore2 ecc.
 		dataTab=DemoApplication.csv;
-		Vector<String> attributi=new Vector<String>();
-		Vector<String> valori=new Vector<String>();
-		Vector<String> logicalOps=new Vector<String>();
+		Filter myFilter= new Filter();
 		
-		if(filter.equals("")==false)
+		if(getCall.equals("")==false)
 		{
-			filterUtils.stringSplitter(filter, ":", attributi,valori,logicalOps);
-			filtered=filterUtils.filterWithOp(dataTab, attributi, valori, logicalOps);
+			Filter.stringSplitter(getCall, ":", myFilter.getAttributeNames(),myFilter.getValues(),myFilter.getLogical());
+			filtered=myFilter.applyFilters(dataTab);
 		}
 		results.setMax(filtered);
 		results.setMin(filtered);

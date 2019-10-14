@@ -141,7 +141,8 @@ public class Filter {
 	
 	public Vector<Aid> applyFilters(Vector<Aid> source)
 	{	
-		output=filterAttributes(source);
+		Vector<Aid> local=filterAttributes(source);
+		
 		
 		if(logical.isEmpty()==false)
 		{
@@ -154,7 +155,7 @@ public class Filter {
 				attributeNames.removeElementAt(0);
 				values.removeElementAt(0);
 				
-				return filterAttributes(output);
+				return applyFilters(local);
 			}
 			else if(logical.get(0).contentEquals("OR")) //trovo un operatore OR
 			{ 	//devo applicare altri filtri ai dati di partenza, la source sarà tutto l'input
@@ -162,10 +163,11 @@ public class Filter {
 				logical.removeElementAt(0); 
 				attributeNames.removeElementAt(0);
 				values.removeElementAt(0);
-				Vector<Aid> temp=filterAttributes(source);
-				output.addAll(temp);
-				checkDuplicates(output);
-				return output;
+				
+				Vector<Aid> temp=applyFilters(source);
+				local.addAll(temp);
+				checkDuplicates(local);
+				return local;
 			}
 			else
 			{
@@ -174,7 +176,7 @@ public class Filter {
 			}
 		}
 		
-		return output;
+		return local;
 	}
 
 	
@@ -212,17 +214,17 @@ public class Filter {
 	{
 		Vector<YA> selected;
 		Aid temp = new Aid();
-		Vector<Aid> appoggio = new Vector<Aid>();
+		Vector<Aid> local = new Vector<Aid>();
 		
 		for(Aid oggetto:input)
 		{
 			selected=selectYears(oggetto.getAidList(),operatore,valore);
 			temp=oggetto.copy();
 			temp.setAidList(selected);
-			appoggio.add(temp);
+			local.add(temp);
 			
 		}
-		return appoggio;
+		return local;
 	}
 	
 	//Metodo che effettua il confronto tra numeri o tra stringhe con gli operatori ><= e restituisce vero o falso

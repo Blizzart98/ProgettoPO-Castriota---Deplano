@@ -31,13 +31,13 @@ public class FilterController {
 	}
 	
 	@GetMapping("/aid/data") 
-	public Vector<Aid> getFiltered(@RequestParam(value="filter",defaultValue="", required=false) String getCall) throws FileNotFoundException, IOException,NullPointerException
+	public Vector<Aid> filterAid(@RequestParam(value="filter",defaultValue="", required=false) String getCall) throws FileNotFoundException, IOException,NullPointerException
 	{
 		//format ?filter=attributo:valore:opLogico:attributo2:valore2 ecc.
 		dataTab=DemoApplication.csv;
 		Filter myFilter=new Filter();
 		myFilter.setInput(dataTab);
-
+	
 		if(getCall.equals("")==false)
 		{
 			
@@ -64,10 +64,10 @@ public class FilterController {
 	{
 		dataTab=DemoApplication.csv;
 		Filter myFilter=new Filter();
-		Vector<Aid> appoggio; //
+		Vector<Aid> local; //
 		
 		myFilter.setInput(dataTab);
-		appoggio = myFilter.filterYears(operator, value);
+		local = myFilter.filterYears(operator, value);
 		
 		if(getCall.equals("")==false)
 		{
@@ -76,7 +76,7 @@ public class FilterController {
 			//Restituisco i valori filtrati come da richiesta
 			if(checkAttributes(myFilter.getAttributeNames()))
 			//Restituisco i valori filtrati come da richiesta
-			return myFilter.applyFilters(myFilter.getInput());
+			return myFilter.applyFilters(local);
 			else
 			{
 				System.out.println("Attributi non corretti, non è stato possibile filtrare");
@@ -84,7 +84,7 @@ public class FilterController {
 			}
 		}
 		else
-			return appoggio;
+			return local;
 	}
 	
 	@GetMapping("/aid/metadata")
