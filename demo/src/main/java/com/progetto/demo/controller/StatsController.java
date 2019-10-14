@@ -16,6 +16,13 @@ import com.progetto.demo.model.Stats;
 @RestController 
 
 public class StatsController {
+	/**
+	 * Classe per l'output di statistiche attraverso un filtro.
+	 * La tabella viene scansionata a seconda dei parametri passati tramite formato indicato.
+	 * I dati del vettore risultante vengono poi utlizzati per calcolare valore massimo, medio, minimo,
+	 * deviazione standard, somma e conteggio.
+	 * I dati vengono restituiti in formato JSON tramite un oggetto di tipo stats.
+	 */
 
 	Stats results = new Stats();
 	private static Vector<Aid> dataTab;

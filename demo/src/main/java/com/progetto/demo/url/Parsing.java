@@ -9,12 +9,18 @@ import java.util.Vector;
 import com.progetto.demo.model.*;
 
 public class Parsing {
+	
+	/**
+	 * Funzione che effettua una lettura del csv e salva i dati all'interno di classi opportunamente strutturate.
+	 * Vengono utilizzati i caratteri ";" e "," per riconoscere la separazione tra i valori di due attributi diversi.
+	 * Tramite la variabile "y" solo per la prima riga vengono memorizzati i nomi degli attributi, tale variabile assumerà 
+	 * poi il valore 2000, corrispondente al valore del primo anno dei rilevamenti.
+	 * La funzione restituisce un vettore di oggetti di classe Aid.
+	 */
+	
 	final static String DELIMITER = ",|\\;"; //delimitatori che andremo a cercare nel CSV
 	private static String[] aux; //variabile di supporto per i campi
 	
-	/*
-	 * Funzione che effettua il parsing del CSV e restituisce una tabella strutturata
-	 */
 	
 	public static Vector<Aid> fileParsing() throws FileNotFoundException, IOException{
 		
@@ -44,7 +50,9 @@ public class Parsing {
 	}
 	
 	
-	//funzione che prende la linea di aiuti, e crea un vettore di oggetti di tipo YA.
+	/*
+	 * funzione che prende la linea di aiuti, e crea un vettore di oggetti di tipo YA.
+	 */
 	private static Vector<YA> addYA(String[] campi,int year) {
 		Vector<YA> aidLine = new Vector<YA>();
 		for(int i=4;i<campi.length;i++) {

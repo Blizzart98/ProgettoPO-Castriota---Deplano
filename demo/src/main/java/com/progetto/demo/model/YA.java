@@ -2,8 +2,11 @@ package com.progetto.demo.model;
 
 import java.io.IOException;
 
-/*
- * Classe composta dall'anno e dall'aiuto
+/**
+ * Classe YA usata per definire rilevazione dei singoli anni.
+ * Contiene l'anno di misurazione ed il valore misurato.
+ * @author castr
+ *
  */
 
 
@@ -11,8 +14,6 @@ public class YA {
 	private int year;
 	private double value;
 	
-//	@metadati(alias="Year", sourcefield="Data Rilevazione", type="int")
-
 	//Fornisce l'anno del YA
 	public int getYear() {
 		return year;
@@ -58,7 +59,4 @@ public class YA {
 	public String toStringJson() {
 		return "date\":\""+ year +"\",\"value\":\"" + value+"\"";
 	}
-	
-	
-
 }

@@ -7,8 +7,14 @@ import java.io.IOException;
 import java.util.Vector;
 
 import com.progetto.demo.model.*;
-
+/**
+ * Classe che effettua il parsing del file metaData.csv, e restituisce un vettore di oggetti
+ * di tipo MetaData.
+ * @author castr
+ *
+ */
 public class ParseMetadata {
+	
 	final static String DELIMITER = ";"; 
 
 	

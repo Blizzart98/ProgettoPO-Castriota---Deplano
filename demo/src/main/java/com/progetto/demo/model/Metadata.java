@@ -1,5 +1,10 @@
 package com.progetto.demo.model;
-
+/**
+ * Classe che descrive la struttura oggetti di tipo metadata.
+ * Contiene costruttore, getters e setters.
+ * @author castr
+ *
+ */
 public class Metadata {
 
 	private String alias;

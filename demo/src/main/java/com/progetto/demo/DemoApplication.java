@@ -16,6 +16,12 @@ import com.progetto.demo.url.Parsing;
 
 @SpringBootApplication
 public class DemoApplication {
+	
+	/**
+	 * Main dell'applicazione java. 
+	 * Viene richiamata una funzione per il download del csv, una per il parsing del csv
+	 * ed una per il parsing dei metadati
+	 */
 	public static Vector<Aid> csv;
 	public static Vector<Metadata> meta;
 	
@@ -23,7 +29,7 @@ public class DemoApplication {
 	public static void main(String[] args) throws IOException, ParseException, org.json.simple.parser.ParseException {
 		
 		SpringApplication.run(DemoApplication.class, args);
-		Download.selectUrl();
+		Download.DownloadData();
 		System.out.println("Download: OK");
 		csv=Parsing.fileParsing();
 		System.out.println("Data Parsing: OK");

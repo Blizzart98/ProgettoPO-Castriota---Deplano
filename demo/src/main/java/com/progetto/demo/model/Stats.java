@@ -1,8 +1,15 @@
 package com.progetto.demo.model;
 
 import java.util.Vector;
-
+/**
+ * Classe che definisce elementi di tipo stats, utile per calcolo statistiche sui dati del csv
+ * @author castr
+ *
+ */
 public class Stats {
+	
+	
+	
 	private double avg;
 	private double max;
 	private double min;

@@ -2,78 +2,62 @@ package com.progetto.demo.model;
 
 import java.util.Vector;
 
+/**
+ * Classe che descrive la struttura degli oggetti di tipo Aid.
+ * Ogni oggetto contiene la frequenza, la nazione, l'unità di misura, l'obbiettivo ed 
+ * uun vettore di oggetti di tipo YA, ognuno definisce il contributo per uno specifico anno.
+ * @author castr
+ *
+ */
 public class Aid {
+
 
 	private char freq;
 	private String geo;
 	private String unit;
 	private String obj;
 	private Vector<YA> aidList;
-	
-	//@metadati(alias="Frequenza", sourcefield="Frequenza di Rilevazione", type="Char")
 
-	//Fornisce la frequenza dell'aid
 	
 	public char getFreq() {
 		return freq;
 	}
 	
-	//Imposta la frequenza dell'aid
 	public void setFreq(char freq) {
 		this.freq = freq;
 	}
 	
-	//@metadati(alias="Geo", sourcefield="Stato contribuente", type="String")
-
-	// Fornisce lo stato dell'aid
 	public String getGeo() {
 		return geo;
 	}
-	// Imposta lo stato dell'aid
 
 	public void setGeo(String geo) {
 		this.geo = geo;
 	}
 	
-	//@metadati(alias="Unit", sourcefield="Unità di misura", type="String")
-
-	//Fornisce unità di misura
 	public String getUnit() {
 		return unit;
 	}
 	
-	//Imposta unità di misura
-
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
 	
-//	@metadati(alias="Obj", sourcefield="Codice dell'obbiettivo", type="String")
-
-	// Fornisce l'obiettivo
 	public String getObj() {
 		return obj;
 	}
-	
-	// Imposta l'obiettivo
+
 	public void setObj(String obj) {
 		this.obj = obj;
 	}
-	
-//	@metadati(alias="Gdpdata", sourcefield="Vettore di aiuti", type="Char")
 
-	// Fornisce il vettore YA
 	public Vector<YA> getAidList() {
 		return aidList;
 	}
 	
-	// Imposta il vettore YA
-
 	public void setAidList(Vector<YA> aidList) {
 		this.aidList = aidList;
 	}
-
-	//Costruttore oggetto Aid 
 	
 	public Aid(char freq, String geo, String unit, String obj, Vector<YA> aidList) {
 		super();
@@ -95,14 +79,21 @@ public class Aid {
 		this.aidList=null;
 	}
 
-	//Fornisce i dati dell'aid sotto forma di una stringa di testo
+	
 
 	@Override
+	/**
+	 * 	Fornisce i dati dell'aid sotto forma di una stringa di testo
+	 */
 	public String toString() {
 		return "Aid [freq=" + freq + ", geo=" + geo + ", unit=" + unit + ", obj=" + obj + ", aidList=" + aidList + "]";
 	}
 	
-	//Verifica se due oggetti Aid hanno gli stessi campi
+	/**
+	 * Verifica se due oggetti Aid hanno gli stessi campi
+	 * @param oggetto
+	 * @return
+	 */
 	
 	public boolean equals(Aid oggetto)
 	{
@@ -112,7 +103,10 @@ public class Aid {
 			return false;
 	}
 	
-	//Copia gli attributi dell'oggetto in un altro oggetto Aid
+	/**
+	 * Copia gli attributi dell'oggetto in un altro oggetto Aid
+	 * @return
+	 */
 	
 	public Aid copy()
 	{

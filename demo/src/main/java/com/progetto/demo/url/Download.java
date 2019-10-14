@@ -18,28 +18,19 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
-
-
 public class Download{
 	
-	/*
-	 * Seleziona l'Url di default o quello inserito
-	 * @throws IOException gestisce gli errori del flusso di lettura dell'url
-	 */
-	public static void selectUrl() throws IOException {
-		Scanner input = new Scanner(System.in);
-		BufferedReader urlinput = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("Avvio download del file CSV");
-		Download.DownloadData();
-		input.close();
-			
-	}
+	/**
+	  * Viene scansionato un file di tipo JSON passato tramite url alla ricerca di un link utile 
+	  * per il download di un file di tipo .csv.
+	  * Quando e se viene trovato comincia un download del file tramite chiamata ad un'altra funzione.
+	  */
+	 
 
 	public static void DownloadData() {
 
 		String url = "http://data.europa.eu/euodp/data/api/3/action/package_show?id=Ju4o7srAEdHz4OMPwCWiDQ";
 		try {
-			
 			URLConnection openConnection = new URL(url).openConnection();
 			openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
 			InputStream in = openConnection.getInputStream();
@@ -82,6 +73,10 @@ public class Download{
 		}
 	}
 	
+	/**
+	 * Funzione che effettua il download del file.
+	 * Nel caso in cui sia già presente un file nel percorso specificato esso viene sostituito.
+	 */
 
 	public static void DownloadUrl(String url, String fileName) throws Exception {
 	    try (InputStream in = URI.create(url).toURL().openStream()) {
