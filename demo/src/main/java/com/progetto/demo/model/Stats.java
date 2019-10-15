@@ -54,18 +54,28 @@ public class Stats {
 	
 /**
  * Setter di max nel caso in cui gli venga passato un vettore di tipo Aid
- * La funzione cerca all'interno del vettore il valore massimo
+ * La funzione cerca all'interno del vettore il valore massimo escludendo i valori dei totali.
+ * Nel caso in cui siano presenti solo valori totali, restituisce il massimo tra essi.
  * @param v, vettore di oggetti Aid
  */
 	public void setMax(Vector<Aid> v) {
 		double max=0.0;
 		for(Aid oggetto : v)
 		{
-			if(oggetto.getObj().equals("TOTAL"))
-				break;
+			if(oggetto.getObj().equals("TOTAL")==false) {
 			for(int i=0; i<oggetto.getAidList().size();i++) {
 				if(oggetto.getAidList().get(i).getValue() > max)
 				max=oggetto.getAidList().get(i).getValue();
+			}
+			}
+				
+			}
+		if(max==0)	{
+			for(Aid oggetto : v) {
+			for(int i=0; i<oggetto.getAidList().size();i++) {
+				if(oggetto.getAidList().get(i).getValue() > max)
+				max=oggetto.getAidList().get(i).getValue();
+			}
 			}
 		}
 		this.max = max;
@@ -88,6 +98,8 @@ public class Stats {
 	/**
 	 * Setter di min nel caso in cui gli venga passato un vettore di tipo Aid
 	 * La funzione cerca all'interno del vettore il valore minimo.
+	 * Inizialmente viene assunto come minimo il primo valore del vettore.
+	 * Come valore minimo non viene accettato lo 0.
 	 * @param v, vettore di oggetti Aid
 	 */
 	public void setMin(Vector<Aid> v) {
@@ -112,6 +124,8 @@ public class Stats {
 	/**
 	 * Setter di avg nel caso in cui gli venga passato un vettore di tipo Aid.
 	 * La funzione calcola il valore medio degli elementi del vettore.
+	 * Nel calcolo non vengono inclusi i valori con obbiettivo "TOTAL".
+	 * Nel caso vi siano solo oggetti con obbietivi "TOTAL" restituisce la media tra essi
 	 * @param v, vettore di oggetti Aid
 	 */
 	public void setAvg(Vector<Aid> v) {
@@ -121,11 +135,20 @@ public class Stats {
 		{
 			
 			for(int i=0; i<oggetto.getAidList().size();i++) {
-				if(oggetto.getObj().equals("TOTAL")==false)
+				if(oggetto.getObj().equals("TOTAL")==false) {
 				avg+=oggetto.getAidList().get(i).getValue();
 				 j++;
+				}
 		}
 	}
+		if(avg==0)	{
+			for(Aid oggetto : v) {
+			for(int i=0; i<oggetto.getAidList().size();i++) {
+				avg+=oggetto.getAidList().get(i).getValue();
+				 j++;
+			}
+			}
+			}
 		avg=Math.rint(avg/j*100)/100;
 	this.avg=avg;
 	}
@@ -133,53 +156,60 @@ public class Stats {
 	/**
 	 * Setter di devStd nel caso in cui gli venga passato un vettore di tipo Aid.
 	 * La funzione calcola la deviazione standard degli elementi presenti nel vettore.
+	 * Nel calcolo non vengono inclusi i valori con obbiettivo "TOTAL".
+	 * Nel caso vi siano solo oggetti con obbietivi "TOTAL" restituisce la deviazione
+	 * standard tra essi.
+	 * Questa funzione è utilizzata anche per incrementare il contatore.
 	 * @param v, vettore di oggetti di tipo Aid.
 	 * @param m, media aritmetica dei valori.
 	 */
 	public void setDevStd(Vector<Aid> v, double m) {
 		double dev=0;
-		int j=0;
 		for(Aid oggetto : v)
 		{
 			for(int i=0; i<oggetto.getAidList().size();i++) {
-				dev=dev+Math.pow(((oggetto.getAidList().get(i).getValue())-m),2);
-				j++;
-							}
-			dev=Math.sqrt(dev);
+				if(oggetto.getObj().equals("TOTAL")==false) {
+					dev=dev+Math.pow(((oggetto.getAidList().get(i).getValue())-m),2);
+				count++;
+				}
 		}
+	}
+		if(dev==0)	{
+			for(Aid oggetto : v) {
+			for(int i=0; i<oggetto.getAidList().size();i++) {
+				dev=dev+Math.pow(((oggetto.getAidList().get(i).getValue())-m),2);
+				count++;
+			}
+			}
+			}
+			dev=Math.sqrt(dev);
 		
-		this.devStd = Math.rint(dev/j*100)/100;
+		this.devStd = Math.rint(dev/count*100)/100;
 	}
 	
 	
 	/**Setter di sum nel caso in cui gli venga passato un vettore di tipo Aid
 	 * La funzione calcola la somma dei valori all'interno del vettore.
+	 * Nel calcolo non vengono inclusi i valori con obbiettivo "TOTAL".
+	 * Nel caso vi siano solo oggetti con obbietivi "TOTAL" restituisce la somma tra essi  
 	 * @param v, vettore di oggetti Aid
 	 * */
 	public void setSum(Vector<Aid> v) {
 		double sum=0;
 		for(Aid oggetto : v)
 		{
+			if(oggetto.getObj().equals("TOTAL")==false) {
 			for(int i=0; i<oggetto.getAidList().size(); i++) 
-				sum+=oggetto.getAidList().get(i).getValue();						
+				sum+=oggetto.getAidList().get(i).getValue();
+			}
 		}
-			
+		
+		if(sum==0) {
+			for(Aid oggetto : v)
+			for(int i=0; i<oggetto.getAidList().size(); i++) 
+				sum+=oggetto.getAidList().get(i).getValue();
+		}
 		this.sum = Math.rint(100*sum)/100;
-	}
-	
-	/**
-	 * Setter di count nel caso in cui gli venga passato un vettore di tipo Aid
-	 * La funzione conta quanti elementi sono presenti all'interno del vettore.
-	 * @param v, vettore di oggetti Aid
-	 */
-	public void setCount(Vector<Aid> v) {
-		int count=0;
-		for(Aid oggetto : v)
-		{
-			for(int i=0; i<oggetto.getAidList().size();i++) 
-				count++;			
-		}
-		this.count = count;
 	}
 	
 
