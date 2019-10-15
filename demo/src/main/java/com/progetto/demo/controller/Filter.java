@@ -141,7 +141,8 @@ public class Filter {
 	
 	public Vector<Aid> applyFilters(Vector<Aid> source)
 	{	
-		output=filterAttributes(source);
+		Vector<Aid> local=filterAttributes(source);
+		
 		
 		if(logical.isEmpty()==false)
 		{
@@ -154,7 +155,7 @@ public class Filter {
 				attributeNames.removeElementAt(0);
 				values.removeElementAt(0);
 				
-				return filterAttributes(output);
+				return applyFilters(local);
 			}
 			else if(logical.get(0).contentEquals("OR")) //trovo un operatore OR
 			{ 	//devo applicare altri filtri ai dati di partenza, la source sarà tutto l'input
@@ -162,14 +163,20 @@ public class Filter {
 				logical.removeElementAt(0); 
 				attributeNames.removeElementAt(0);
 				values.removeElementAt(0);
-				Vector<Aid> temp=filterAttributes(source);
-				output.addAll(temp);
-				checkDuplicates(output);
-				return output;
+				
+				Vector<Aid> temp=applyFilters(source);
+				local.addAll(temp);
+				checkDuplicates(local);
+				return local;
+			}
+			else
+			{
+				System.out.println("Operatore logico non corretto, i filtri ottenuti potrebbero essere incompleti");
+				return null;
 			}
 		}
 		
-		return output;
+		return local;
 	}
 
 	
@@ -203,23 +210,21 @@ public class Filter {
 	}
 	
 	
-	void filterYears(String operator,Double value,Vector<Aid> source)
+	public Vector<Aid> filterYears(String operatore,Double valore)
 	{
-		Vector<YA> selected=new Vector<YA>();
+		Vector<YA> selected;
+		Aid temp = new Aid();
+		Vector<Aid> local = new Vector<Aid>();
 		
-		for(Aid oggetto:source)
+		for(Aid oggetto:input)
 		{
-			for(YA anno:oggetto.getAidList())
-			{
-				if(check(anno.getValue(),operator,value))
-					{
-						//System.out.println("Ho selezionato un anno  " + anno.getYear()); //debug
-						selected.add(anno);
-					}
-			}
-			oggetto.setAidList(selected);
-			selected.clear();
+			selected=selectYears(oggetto.getAidList(),operatore,valore);
+			temp=oggetto.copy();
+			temp.setAidList(selected);
+			local.add(temp);
+			
 		}
+		return local;
 	}
 	
 	//Metodo che effettua il confronto tra numeri o tra stringhe con gli operatori ><= e restituisce vero o falso

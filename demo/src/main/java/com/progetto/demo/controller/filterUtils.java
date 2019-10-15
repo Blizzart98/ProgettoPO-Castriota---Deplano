@@ -43,7 +43,7 @@ public class filterUtils {
 					
 				default: 
 					System.out.println("Attributo non corretto");
-					break;
+					return null;
 			}
 		}
 		return filtered;
@@ -67,9 +67,10 @@ public class filterUtils {
 				
 				return filterWithOp(output,attributeNames,value,logicalOperators);
 			}
+			
 			else if(logicalOperators.get(0).contentEquals("OR")) //trovo un operatore OR
 			{ 	//devo applicare altri filtri ai dati di partenza, la source rimarrà "source"
-				String precedente=value.get(0);
+
 				logicalOperators.removeElementAt(0); 
 				attributeNames.removeElementAt(0);
 				value.removeElementAt(0);
