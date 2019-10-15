@@ -15,7 +15,7 @@ public class Parsing {
 	 * Vengono utilizzati i caratteri ";" e "," per riconoscere la separazione tra i valori di due attributi diversi.
 	 * Tramite la variabile "y" solo per la prima riga vengono memorizzati i nomi degli attributi, tale variabile assumerà 
 	 * poi il valore 2000, corrispondente al valore del primo anno dei rilevamenti.
-	 * La funzione restituisce un vettore di oggetti di classe Aid.
+	 * La funzione restituisce un vettore di oggetti di classe Aid a partire da un file csv.
 	 * @author Piero Castriota, Lorenzo Deplano
 	 */
 	
@@ -51,8 +51,11 @@ public class Parsing {
 	}
 	
 	
-	/*
-	 * funzione che prende la linea di aiuti, e crea un vettore di oggetti di tipo YA.
+	/**
+	 * Funzione che prende la linea di aiuti, e crea un vettore di oggetti di tipo YA.
+	 * @param campi, valori presi in input dal csv.
+	 * @param year, anno iniziale
+	 * @return vettore di oggetti di tipo YA.
 	 */
 	private static Vector<YA> addYA(String[] campi,int year) {
 		Vector<YA> aidLine = new Vector<YA>();
