@@ -11,21 +11,19 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
-
+/**
+* Viene scansionato un file di tipo JSON passato tramite url alla ricerca di un link utile 
+* per il download di un file di tipo .csv.
+* Quando e se viene trovato comincia un download del file tramite chiamata ad un'altra funzione.
+ * @author castr
+ *
+ */
 public class Download{
-	
-	/**
-	  * Viene scansionato un file di tipo JSON passato tramite url alla ricerca di un link utile 
-	  * per il download di un file di tipo .csv.
-	  * Quando e se viene trovato comincia un download del file tramite chiamata ad un'altra funzione.
-	  */
-	 
 
 	public static void DownloadData() {
 
@@ -75,7 +73,7 @@ public class Download{
 	
 	/**
 	 * Funzione che effettua il download del file.
-	 * Nel caso in cui sia già presente un file nel percorso specificato esso viene sostituito.
+	 * Nel caso in cui sia già presente un file nel percorso specificato con stesso nome esso viene sostituito.
 	 */
 
 	public static void DownloadUrl(String url, String fileName) throws Exception {

@@ -91,7 +91,7 @@ public class Aid {
 	
 	/**
 	 * Verifica se due oggetti Aid hanno gli stessi campi
-	 * @param oggetto
+	 * @param oggetto, oggetto di tipo aid
 	 * @return
 	 */
 	

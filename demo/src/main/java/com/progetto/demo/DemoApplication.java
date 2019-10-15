@@ -15,13 +15,16 @@ import com.progetto.demo.url.ParseMetadata;
 import com.progetto.demo.url.Parsing;
 
 @SpringBootApplication
+
+/**
+* Main dell'applicazione java. 
+* All'avvio del programma viene richiamata una funzione per il download del csv, una per il parsing del csv
+* ed una per il parsing dei metadati
+ * @author castr
+ *
+ */
 public class DemoApplication {
 	
-	/**
-	 * Main dell'applicazione java. 
-	 * Viene richiamata una funzione per il download del csv, una per il parsing del csv
-	 * ed una per il parsing dei metadati
-	 */
 	public static Vector<Aid> csv;
 	public static Vector<Metadata> meta;
 	
