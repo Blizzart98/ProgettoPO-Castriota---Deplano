@@ -14,21 +14,22 @@ import com.progetto.demo.url.Download;
 import com.progetto.demo.url.ParseMetadata;
 import com.progetto.demo.url.Parsing;
 
-@SpringBootApplication
+
 
 /**
 * Main dell'applicazione java. 
 * All'avvio del programma viene richiamata una funzione per il download del csv, una per il parsing del csv
 * ed una per il parsing dei metadati
- * @author castr
- *
- */
+* @author Piero Castriota, Lorenzo Deplano
+*
+*/
+@SpringBootApplication
 public class DemoApplication {
 	
-	public static Vector<Aid> csv;
-	public static Vector<Metadata> meta;
+	private static Vector<Aid> csv;
+	private static Vector<Metadata> meta;
 	
-
+	
 	public static void main(String[] args) throws IOException, ParseException, org.json.simple.parser.ParseException {
 		
 		SpringApplication.run(DemoApplication.class, args);
@@ -39,6 +40,15 @@ public class DemoApplication {
 		meta=ParseMetadata.fileParsing();
 		System.out.println("Metadata Parsing: OK");
 		
+	}
+	
+	public static Vector<Aid> getCsv() {
+		return csv;
+	}
+
+
+	public static Vector<Metadata> getMeta() {
+		return meta;
 	}
 
 }

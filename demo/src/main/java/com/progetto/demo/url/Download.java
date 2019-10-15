@@ -20,7 +20,7 @@ import org.json.simple.parser.ParseException;
 * Viene scansionato un file di tipo JSON passato tramite url alla ricerca di un link utile 
 * per il download di un file di tipo .csv.
 * Quando e se viene trovato comincia un download del file tramite chiamata ad un'altra funzione.
- * @author castr
+ * @author Piero Castriota
  *
  */
 public class Download{
@@ -41,7 +41,7 @@ public class Download{
 			  
 			   while ( ( line = buf.readLine() ) != null ) {
 				   data+= line;
-				   System.out.println( line );
+				 
 			   }
 			 } finally {
 			   in.close();
@@ -55,15 +55,13 @@ public class Download{
 			        JSONObject o1 = (JSONObject)o; 
 			        String format = (String)o1.get("format");
 			        String urlD = (String)o1.get("url");
-			        System.out.println(format + " | " + urlD);
+			      
 			        if(format.equals("http://publications.europa.eu/resource/authority/file-type/CSV")) {
 			        	System.out.println( "CSV found. Downloading..." );
 			        	DownloadUrl(urlD, "file/data.csv");
-			        	System.out.println("Other files:\n");
 			        }
 			    }
 			}
-			System.out.println( "Download Completed." );
 		} catch (IOException | ParseException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

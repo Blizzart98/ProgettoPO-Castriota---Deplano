@@ -5,8 +5,8 @@ import java.util.Vector;
 /**
  * Classe che descrive la struttura degli oggetti di tipo Aid.
  * Ogni oggetto contiene la frequenza, la nazione, l'unità di misura, l'obbiettivo ed 
- * uun vettore di oggetti di tipo YA, ognuno definisce il contributo per uno specifico anno.
- * @author castr
+ * un vettore di oggetti di tipo YA, ognuno definisce il contributo per uno specifico anno.
+ * @author Piero Castriota, Lorenzo Deplano
  *
  */
 public class Aid {
@@ -92,7 +92,7 @@ public class Aid {
 	/**
 	 * Verifica se due oggetti Aid hanno gli stessi campi
 	 * @param oggetto, oggetto di tipo aid
-	 * @return
+	 * @return true se sono uguali, false altrimenti
 	 */
 	
 	public boolean equals(Aid oggetto)
@@ -105,7 +105,7 @@ public class Aid {
 	
 	/**
 	 * Copia gli attributi dell'oggetto in un altro oggetto Aid
-	 * @return
+	 * @return l'oggetto copiato
 	 */
 	
 	public Aid copy()

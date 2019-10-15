@@ -3,7 +3,7 @@ package com.progetto.demo.model;
 import java.util.Vector;
 /**
  * Classe che definisce elementi di tipo stats, utile per calcolo statistiche sui dati del csv
- * @author castr
+ * @author Piero Castriota
  *
  */
 public class Stats {
@@ -145,6 +145,7 @@ public class Stats {
 				dev=dev+Math.pow(((oggetto.getAidList().get(i).getValue())-m),2);
 				j++;
 							}
+			dev=Math.sqrt(dev);
 		}
 		
 		this.devStd = Math.rint(dev/j*100)/100;

@@ -17,7 +17,7 @@ import com.progetto.demo.model.Stats;
 * I dati del vettore risultante vengono poi utlizzati per calcolare valore massimo, medio, minimo,
 * deviazione standard, somma e conteggio.
 * I dati vengono restituiti in formato JSON tramite un oggetto di tipo stats
-* @author castr
+* @author Piero Castriota
 *
 */
 
@@ -33,8 +33,8 @@ public class StatsController {
 	@GetMapping("/aid/stats")
 	public Stats getFiltered(@RequestParam(value="filter",defaultValue="", required=false) String getCall) throws FileNotFoundException, IOException,NullPointerException
 	{
-		//format ?filter=attributo:valore:opLogico:attributo2:valore2 ecc.
-		dataTab=DemoApplication.csv;
+		//format ?filter=attributo:valore:opLogico:attributo2:valore2...
+		dataTab=DemoApplication.getCsv();
 		Filter myFilter= new Filter();
 		
 		if(getCall.equals("")==false)

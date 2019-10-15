@@ -16,10 +16,11 @@ public class Parsing {
 	 * Tramite la variabile "y" solo per la prima riga vengono memorizzati i nomi degli attributi, tale variabile assumerà 
 	 * poi il valore 2000, corrispondente al valore del primo anno dei rilevamenti.
 	 * La funzione restituisce un vettore di oggetti di classe Aid.
+	 * @author Piero Castriota, Lorenzo Deplano
 	 */
 	
 	final static String DELIMITER = ",|\\;"; //delimitatori che andremo a cercare nel CSV
-	private static String[] aux; //variabile di supporto per i campi
+	
 	
 	
 	public static Vector<Aid> fileParsing() throws FileNotFoundException, IOException{
@@ -36,8 +37,8 @@ public class Parsing {
 				}
 				else {
 				
-					aux = campi;
-					campi[4]=campi[4].trim(); //levo gli spazi
+					
+					campi[4]=campi[4].trim(); //rimuove gli spazi
 					y=Integer.parseInt(campi[4]);
 					
 				}

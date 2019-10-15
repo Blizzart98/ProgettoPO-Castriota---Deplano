@@ -3,7 +3,7 @@ package com.progetto.demo.model;
 /**
  * Classe YA usata per definire rilevazione dei singoli anni.
  * Contiene l'anno di misurazione ed il valore misurato.
- * @author castr
+ * @author Piero Castriota
  *
  */
 

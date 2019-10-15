@@ -10,7 +10,7 @@ import com.progetto.demo.model.*;
 /**
  * Classe che effettua il parsing del file metaData.csv, e restituisce un vettore di oggetti
  * di tipo MetaData.
- * @author castr
+ * @author Piero Castriota
  *
  */
 public class ParseMetadata {

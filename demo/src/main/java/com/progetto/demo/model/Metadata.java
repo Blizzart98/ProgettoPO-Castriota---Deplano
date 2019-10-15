@@ -2,7 +2,7 @@ package com.progetto.demo.model;
 /**
  * Classe che descrive la struttura oggetti di tipo metadata.
  * Contiene costruttore, getters e setters.
- * @author castr
+ * @author Piero Castriota
  *
  */
 public class Metadata {
